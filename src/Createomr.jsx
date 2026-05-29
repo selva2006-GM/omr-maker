@@ -9,33 +9,38 @@ export default function CreateOMR(props) {
     const [correctAnswers, setCorrectAnswers] = useState({});
     const [score, setScore] = useState(0);
     const [unattempted, setUnattempted] = useState(0);  
-
-    const wrongAnswers =
-        Number(props.Noq) - (score || 0) - unattempted;
+    const [correctCount, setCorrectCount] = useState(0);
+    const [wrongAnswers, setWrongAnswers] = useState(0);
     
     
-    function calculateScore() {
-        let total = 0;
-        let notAttempted = 0;
-    
-        for (let i = 1; i <= Number(props.Noq); i++) {
-    
-            if (!studentAnswers[i]) {
-                notAttempted++;
-                continue;
+        function calculateScore() {
+            let total = 0;
+            let notAttempted = 0;
+            let correct = 0;
+            let wrong = 0;
+        
+            for (let i = 1; i <= Number(props.Noq); i++) {
+        
+                if (!studentAnswers[i]) {
+                    notAttempted++;
+                    continue;
+                }
+        
+                if (studentAnswers[i] === correctAnswers[i]) {
+                    correct++;
+                    total += 1;
+                } else {
+                    wrong++;
+                    total -= Number(props.negative || 0);
+                }
             }
-    
-            if (studentAnswers[i] === correctAnswers[i]) {
-                total += 1;
-            } else {
-                total -= Number(props.negative);
-            }
+        
+            setCorrectCount(correct);
+            setWrongAnswers(wrong);
+            setUnattempted(notAttempted);
+            setScore(total);
+            setPage("result");
         }
-    
-        setScore(total);
-        setUnattempted(notAttempted);
-        setPage("result");
-    }
     
 
     function markStudent(qno, option) {
@@ -150,17 +155,17 @@ export default function CreateOMR(props) {
         <h2>Result</h2>
         <h3>Score: {score} / {props.Noq}</h3>
         <h3 style={{ color: "green" }}>
-    Correct Answers: {score}
-</h3>
+            Correct Answers: {correctCount}
+        </h3>
 
-<h3 style={{ color: "red" }}>
-    Wrong Answers: {wrongAnswers}
-</h3>
+        <h3 style={{ color: "red" }}>
+            Wrong Answers: {wrongAnswers}
+        </h3>
 
-<h3 style={{ color: "purple" }}>
-    Not Attempted: {unattempted}
-</h3>
-        
+        <h3 style={{ color: "purple" }}>
+            Not Attempted: {unattempted}
+        </h3>
+                
 
         {questions.map((_, qIndex) => {
             const qno = qIndex + 1;
