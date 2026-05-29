@@ -18,3 +18,64 @@
     background-color: black;
     color: white;
 }
+
+
+.omr-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background: white;
+}
+
+.omr-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.question-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.question-number {
+    width: 40px;
+    font-weight: bold;
+}
+
+.omr-option input {
+    display: none;
+}
+
+.omr-option span {
+    width: 35px;
+    height: 35px;
+    border: 2px solid #444;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.omr-option input:checked + span {
+    background: black;
+    color: white;
+}
+
+.omr-option span:hover {
+    transform: scale(1.1);
+}
+
+.omr-btn {
+    margin-top: 30px;
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}

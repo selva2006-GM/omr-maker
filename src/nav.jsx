@@ -11,47 +11,71 @@ export default function Nav() {
 
         setData({
             title: formData.get("title"),
-            noq: formData.get("noq")
+            noq: formData.get("noq"),
+            negative: Number(formData.get("negative"))
         });
     }
 
     if (data) {
         return (
             <CreateOMR
-                tit={data.title}
-                Noq={data.noq}
-            />
+            tit={data.title}
+            Noq={data.noq}
+            negative={data.negative}
+            newTest={() => setData(null)}
+        />
         );
     }
 
     return (
-        <>
-            <h1>OMR</h1>
-
-            <form onSubmit={onSubmit}>
+        <div className="nav-container">
+            <h1>OMR Generator</h1>
+    
+            <form className="omr-form" onSubmit={onSubmit}>
                 <label>
                     Enter the title:
                     <input
                         type="text"
                         placeholder="title"
                         name="title"
+<<<<<<< HEAD
+=======
+                        defaultValue="OMR Test"
+>>>>>>> 6321d83 (omr ui)
                     />
                 </label>
-
-                <br />
-
+    
                 <label>
                     Enter the no question:
                     <input
                         type="number"
                         name="noq"
+<<<<<<< HEAD
+=======
+                        defaultValue={30}
+>>>>>>> 6321d83 (omr ui)
                     />
                 </label>
 
-                <br />
-
-                <button type="submit">Submit</button>
+                <label>
+                    Negative Mark:
+                    <input
+                        type="number"
+                        step="0.25"
+                        name="negative"
+                        defaultValue={0}
+                    />
+                </label>
+    
+                <button type="submit">
+                    Create OMR
+                </button>
             </form>
-        </>
+        </div>
     );
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6321d83 (omr ui)

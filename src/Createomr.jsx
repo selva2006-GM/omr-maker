@@ -24,7 +24,9 @@ export default function CreateOMR(props) {
             }
     
             if (studentAnswers[i] === correctAnswers[i]) {
-                total++;
+                total += 1;
+            } else {
+                total -= Number(props.negative);
             }
         }
     
@@ -61,39 +63,49 @@ export default function CreateOMR(props) {
 
     
 
-    function OMR({title,
-        answers,
-        marker,
-        buttonText,
-        onFinish}) {
+    function OMR({ title,answers, marker, buttonText, onFinish }) {
         return (
-            <>
+            <div className="omr-container">
                 <h2>{title}</h2>
-
-                {questions.map((_, qIndex) => (
-                    <div key={qIndex}>
-                        <span>Q{qIndex + 1}</span>
-
-                        {options.map((option) => (
-                            <label key={option} className="omr-option">
-                                <input
+    
+                <div className="omr-grid">
+                    {questions.map((_, qIndex) => (
+                        <div
+                            key={qIndex}
+                            className="question-row"
+                        >
+                            <span className="question-number">
+                                {qIndex + 1}
+                            </span>
+    
+                            {options.map((option) => (
+                                <label
+                                    key={option}
+                                    className="omr-option"
+                                >
+                                    <input
                                     type="radio"
                                     name={`${title}-q${qIndex + 1}`}
                                     value={option}
                                     checked={answers[qIndex + 1] === option}
                                     onChange={() => marker(qIndex + 1, option)}
                                 />
-                                <span>{option}</span>
-                            </label>
-                        ))}
-                    </div>
-                ))}
-
-                <button onClick={onFinish}>{buttonText}</button>
-            </>
+                                    <span>{option}</span>
+                                </label>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+    
+                <button
+                    className="omr-btn"
+                    onClick={onFinish}
+                >
+                    {buttonText}
+                </button>
+            </div>
         );
     }
-
     return (
         <>
             <h1>{props.tit} OMR Sheet</h1>
@@ -110,6 +122,7 @@ export default function CreateOMR(props) {
          
 
             {page === "answerKey" && (
+                <>
                 <OMR
                 title="Correct Answers"
                 answers = {correctAnswers}
@@ -117,12 +130,24 @@ export default function CreateOMR(props) {
                 buttonText="Submit"
                 onFinish={calculateScore}
                 />
+
+
+                <button
+                    onClick={() => setPage("test")}
+                >
+                    Previous
+                </button>
+
+                </>
+
+                
             )}
 
 {page === "result" && (
     <>
         <h2>Result</h2>
         <h3>Score: {score} / {props.Noq}</h3>
+        <h3>Not Attempted: {unattempted}</h3>
 
         {questions.map((_, qIndex) => {
             const qno = qIndex + 1;
@@ -151,7 +176,7 @@ export default function CreateOMR(props) {
                     <strong>Q{qno}</strong>
 
                     <span>
-                        Student:{" "}
+                        Student:
                         <span
                             style={{
                                 color:
@@ -160,7 +185,8 @@ export default function CreateOMR(props) {
                                         : status === "wrong"
                                         ? "red"
                                         : "purple",
-                                fontWeight: "bold"
+                                fontWeight: "bold",
+                                marginLeft: "5px"
                             }}
                         >
                             {student || "Not Attempted"}
@@ -168,11 +194,12 @@ export default function CreateOMR(props) {
                     </span>
 
                     <span>
-                        Correct:{" "}
+                        Correct:
                         <span
                             style={{
                                 color: "green",
-                                fontWeight: "bold"
+                                fontWeight: "bold",
+                                marginLeft: "5px"
                             }}
                         >
                             {correct || "-"}
@@ -181,6 +208,22 @@ export default function CreateOMR(props) {
                 </div>
             );
         })}
+
+        <div
+            style={{
+                marginTop: "20px",
+                display: "flex",
+                gap: "10px"
+            }}
+        >
+            <button onClick={() => setPage("answerKey")}>
+                Back
+            </button>
+
+            <button onClick={props.newTest}>
+                New Test
+            </button>
+        </div>
     </>
 )}
           
