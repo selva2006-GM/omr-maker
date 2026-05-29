@@ -38,10 +38,6 @@ export default function Nav() {
                         type="text"
                         placeholder="title"
                         name="title"
-<<<<<<< HEAD
-=======
-                        defaultValue="OMR Test"
->>>>>>> 6321d83 (omr ui)
                     />
                 </label>
     
@@ -50,10 +46,6 @@ export default function Nav() {
                     <input
                         type="number"
                         name="noq"
-<<<<<<< HEAD
-=======
-                        defaultValue={30}
->>>>>>> 6321d83 (omr ui)
                     />
                 </label>
 
@@ -74,8 +66,3 @@ export default function Nav() {
         </div>
     );
 }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 6321d83 (omr ui)
