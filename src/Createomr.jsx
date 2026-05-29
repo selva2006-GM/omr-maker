@@ -10,6 +10,8 @@ export default function CreateOMR(props) {
     const [score, setScore] = useState(0);
     const [unattempted, setUnattempted] = useState(0);  
 
+    const wrongAnswers =
+        Number(props.Noq) - (score || 0) - unattempted;
     
     
     function calculateScore() {
@@ -147,7 +149,18 @@ export default function CreateOMR(props) {
     <>
         <h2>Result</h2>
         <h3>Score: {score} / {props.Noq}</h3>
-        <h3>Not Attempted: {unattempted}</h3>
+        <h3 style={{ color: "green" }}>
+    Correct Answers: {score}
+</h3>
+
+<h3 style={{ color: "red" }}>
+    Wrong Answers: {wrongAnswers}
+</h3>
+
+<h3 style={{ color: "purple" }}>
+    Not Attempted: {unattempted}
+</h3>
+        
 
         {questions.map((_, qIndex) => {
             const qno = qIndex + 1;
