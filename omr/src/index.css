@@ -1,0 +1,20 @@
+.omr-option input {
+    display: none;
+}
+
+.omr-option span {
+    width: 35px;
+    height: 35px;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.omr-option input:checked + span {
+    background-color: black;
+    color: white;
+}
