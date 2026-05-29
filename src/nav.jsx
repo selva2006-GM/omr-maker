@@ -35,7 +35,6 @@ export default function Nav() {
                         type="text"
                         placeholder="title"
                         name="title"
-                        defaultValue = "OMR test"
                     />
                 </label>
 
@@ -46,7 +45,6 @@ export default function Nav() {
                     <input
                         type="number"
                         name="noq"
-                        defaultValue={10}
                     />
                 </label>
 
